@@ -1,0 +1,14 @@
+/* imprimir.css */
+@media print {
+    body {
+        font-size: 14px; /* Defina o tamanho da fonte desejado para impressão */
+    }
+
+    .container {
+        max-width: 100%; /* Utilize toda a largura da página para a impressão */
+    }
+
+    .btn {
+        display: none; /* Oculte todos os botões durante a impressão */
+    }
+}

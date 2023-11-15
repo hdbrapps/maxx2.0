@@ -1,0 +1,72 @@
+.h1,
+h1 {
+    font-size: calc(1.375rem + 1.5vw);
+    font-weight: bold;
+    background: linear-gradient(45deg, #ff8505, #0dcaf0);
+    color: azure;
+}
+
+th {
+    font-weight: bold;
+    background: linear-gradient(45deg, #ff8505, #0dcaf0);
+    color: rgb(255, 255, 255) !important;
+}
+
+td {
+    font-family: 'Sora', sans-serif !important;
+}
+
+select {
+    font-family: 'Sora', sans-serif;
+    background: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(13.5px);
+    -webkit-backdrop-filter: blur(13.5px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+input {
+    font-family: 'Sora', sans-serif;
+    background: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(13.5px);
+    -webkit-backdrop-filter: blur(13.5px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.btn-success {
+    position: relative;
+    right: 110%;
+}
+
+#tecnicoInput {
+    width: 48%;
+}
+
+/* Estilos para o contêiner do total */
+.total-container {
+    font-family: 'Sora', sans-serif;
+    font-size: 24px;
+    color: #555;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Estilos para a etiqueta "Total de Materiais" */
+.total-label {
+    font-weight: bold;
+    color: #333;
+    font-family: 'Sora', sans-serif;
+}
+
+/* Estilos para o número do total */
+.total-number {
+    font-weight: bold;
+    color: #0066cc;
+    font-size: 28px;
+    margin-left: 5px;
+    font-family: 'Sora', sans-serif;
+    /* Espaçamento à esquerda entre a etiqueta e o número */
+}
