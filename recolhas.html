@@ -191,6 +191,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="/js/print.js"></script>
     <script>
         var listaMateriais = [];
 
@@ -199,6 +201,18 @@
             var macInput = document.getElementById("macInput");
             var material = materialSelect.value;
             var mac = macInput.value.toUpperCase();
+
+            if (!mac) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro',
+                    html: 'O campo "Endereço MAC" é obrigatório.',
+                    customClass: {
+                        confirmButton: 'btn btn-danger'
+                    }
+                });
+                return;
+            }
 
             if (listaMateriais.some(item => item.mac === mac)) {
                 Swal.fire({
@@ -209,7 +223,11 @@
                 return;
             }
 
-            listaMateriais.push({ material: material, mac: mac, contagem: 1 });
+            listaMateriais.push({
+                material: material,
+                mac: mac,
+                contagem: 1
+            });
             atualizarTabela();
             atualizarTotalMateriais();
             macInput.value = '';
@@ -260,32 +278,28 @@
             var tecnicoInput = document.getElementById("tecnicoInput");
             var selectedTecnico = tecnicoInput.value;
 
-            var impressaoTableBody = document.getElementById("impressaoTableBody");
-            impressaoTableBody.innerHTML = '';
+            // Clone a tabela para evitar alterações na original
+            var impressaoDiv = $('#impressao').clone();
+
+            impressaoDiv.find("#impressaoTableBody").html('');
 
             listaMateriais.forEach(function (item) {
-                var newRow = impressaoTableBody.insertRow();
-                var cellMaterial = newRow.insertCell(0);
-                var cellMAC = newRow.insertCell(1);
-                var cellStatus = newRow.insertCell(2);
-                cellMaterial.innerHTML = item.material;
-                cellMAC.innerHTML = item.mac;
-                cellStatus.innerHTML = 'Recolhido';
+                var newRow = '<tr><td>' + item.material + '</td><td>' + item.mac +
+                    '</td><td>Recolhido</td></tr>';
+                impressaoDiv.find("#impressaoTableBody").append(newRow);
             });
 
-            var impressaoTotalMateriais = document.getElementById("impressaoTotalMateriais");
-            impressaoTotalMateriais.innerHTML = listaMateriais.length;
+            impressaoDiv.find("#impressaoTotalMateriais").html(listaMateriais.length);
+            impressaoDiv.find("#impressaoTecnico").html(selectedTecnico);
 
-            var impressaoTecnico = document.getElementById("impressaoTecnico");
-            impressaoTecnico.innerHTML = selectedTecnico;
+            impressaoDiv.removeClass("d-none");
 
-            var impressaoDiv = document.getElementById("impressao");
-            impressaoDiv.classList.remove("d-none");
-
-            window.print();
-
-            impressaoDiv.classList.add("d-none");
+            impressaoDiv.printThis({
+                importCSS: true,
+                importStyle: true,
+            });
         }
+
 
         function filtrarPorMAC() {
             var input, filter, table, tr, td, i, txtValue;
