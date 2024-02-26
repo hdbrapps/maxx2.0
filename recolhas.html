@@ -186,51 +186,32 @@
     <script>
         var listaMateriais = [];
 
-        var listaMateriais = [];
+        function adicionarMaterial() {
+            var materialSelect = document.getElementById("materialSelect");
+            var macInput = document.getElementById("macInput");
+            var material = materialSelect.value;
+            var mac = macInput.value.toUpperCase();
 
-    function adicionarMaterial() {
-        var materialSelect = document.getElementById("materialSelect");
-        var macInput = document.getElementById("macInput");
-        var material = materialSelect.value;
-        var mac = macInput.value.toUpperCase();
+            if (!mac) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro',
+                    html: 'O campo "Endereço MAC" é obrigatório.',
+                    customClass: {
+                        confirmButton: 'btn btn-danger'
+                    }
+                });
+                return;
+            }
 
-        if (!mac) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Erro',
-                html: 'O campo "Endereço MAC" é obrigatório.',
-                customClass: {
-                    confirmButton: 'btn btn-danger'
-                }
-            });
-            return;
-        }
-
-        if (listaMateriais.some(item => item.mac === mac)) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Erro',
-                text: 'Este endereço MAC já foi adicionado.',
-            });
-            return;
-        }
-
-        listaMateriais.push({
-            material: material,
-            mac: mac,
-            contagem: 1
-        });
-        atualizarTabela();
-        atualizarTotalMateriais();
-        macInput.value = '';
-
-        Swal.fire({
-            icon: 'success',
-            title: 'Sucesso',
-            text: 'Item adicionado com sucesso.',
-            showConfirmButton: false // Remove o botão "OK"
-        });
-    }
+            if (listaMateriais.some(item => item.mac === mac)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro',
+                    text: 'Este endereço MAC já foi adicionado.',
+                });
+                return;
+            }
 
             listaMateriais.push({
                 material: material,
