@@ -11,12 +11,16 @@
         crossorigin="anonymous">
 
     <link rel="stylesheet" href="/css/recolha.css">
-    <link rel="shortcut icon" href="https://i.postimg.cc/Hxn0TxQq/2-0.png"
-        type="image/x-icon">
+    <link rel="shortcut icon" href="https://i.postimg.cc/Hxn0TxQq/2-0.png" type="image/x-icon">
     <style>
         body {
             font-family: 'Sora', sans-serif;
             background-color: #e2e1eb;
+        }
+
+        #btn {
+            position: relative;
+            left: 1px;
         }
 
         html,
@@ -68,8 +72,6 @@
                 margin-bottom: 20px;
             }
         }
-
-     
     </style>
 </head>
 
@@ -77,9 +79,19 @@
 
     <div class="container mt-5">
         <div class="row mb-3">
-            <div class="col-md-4 offset-md-8">
+            <div class="col-md-6">
                 <input type="text" class="form-control" placeholder="Filtrar por MAC" id="searchMacInput"
                     oninput="filtrarPorMAC()">
+            </div>
+            <div class="col-md-6 d-flex justify-content-end">
+                <input type="text" class="form-control me-2" placeholder="Nome do Técnico" id="tecnicoInput"
+                    oninput="this.value = this.value.toUpperCase();">
+                <button type="button" id="btn" class="btn btn-success me-2" onclick="imprimirLista()">
+                    <i class="fas fa-print"></i> Imprimir
+                </button>
+                <button type="button" class="btn btn-danger" onclick="limparTudo()">
+                    <i class="fas fa-trash"></i> Limpar Tudo
+                </button>
             </div>
         </div>
         <h1 class="mb-4">Recolhimento - Maxx</h1>
@@ -136,20 +148,6 @@
             <span class="total-number" id="totalMateriais">0</span>
         </div>
 
-        <form class="mt-4">
-            <div class="row mb-3">
-                <div class="col-md-8">
-                    <input type="text" class="form-control" placeholder="Nome do Técnico" id="tecnicoInput"
-                        oninput="this.value = this.value.toUpperCase();">
-                </div>
-                <div class="col-md-4">
-                    <button type="button" class="btn btn-success" onclick="imprimirLista()">
-                        <i class="fas fa-print"></i> Imprimir
-                    </button>
-                </div>
-            </div>
-        </form>
-
         <div id="impressao" class="d-none">
             <img src="https://media.licdn.com/dms/image/D4D16AQFdNZZsOlKrzw/profile-displaybackgroundimage-shrink_200_800/0/1681353103958?e=2147483647&v=beta&t=1-yGkc1xYzD5wJMeLd3JK7wCFpcS_nlf8zbEZa9k0KE"
                 alt="Logo da Empresa" class="mb-3">
@@ -186,6 +184,7 @@
     <script>
         var listaMateriais = [];
 
+        // Função para adicionar material
         function adicionarMaterial() {
             var materialSelect = document.getElementById("materialSelect");
             var macInput = document.getElementById("macInput");
@@ -226,9 +225,16 @@
                 icon: 'success',
                 title: 'Sucesso',
                 text: 'Item adicionado com sucesso.',
+                showConfirmButton: false // Remover o botão "OK"
             });
+
+            // Adicionar atraso de 2 segundos antes de fechar o alerta
+            setTimeout(function () {
+                Swal.close();
+            }, 1000);
         }
 
+        // Função para atualizar a tabela de materiais
         function atualizarTabela() {
             var materialTableBody = document.getElementById("materialTableBody");
             materialTableBody.innerHTML = '';
@@ -253,17 +259,20 @@
             });
         }
 
+        // Função para remover material
         function removerMaterial(index) {
             listaMateriais.splice(index, 1);
             atualizarTabela();
             atualizarTotalMateriais();
         }
 
+        // Função para atualizar o total de materiais
         function atualizarTotalMateriais() {
             var totalMateriais = document.getElementById("totalMateriais");
             totalMateriais.innerHTML = listaMateriais.length;
         }
 
+        // Função para imprimir a lista
         function imprimirLista() {
             var tecnicoInput = document.getElementById("tecnicoInput");
             var selectedTecnico = tecnicoInput.value;
@@ -290,7 +299,14 @@
             });
         }
 
+        // Função para limpar tudo
+        function limparTudo() {
+            listaMateriais = [];
+            atualizarTabela();
+            atualizarTotalMateriais();
+        }
 
+        // Função para filtrar por MAC
         function filtrarPorMAC() {
             var input, filter, table, tr, td, i, txtValue;
             input = document.getElementById("searchMacInput");
