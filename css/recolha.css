@@ -1,14 +1,95 @@
+body {
+    font-family: 'Sora', sans-serif;
+    background-color: #e2e1eb;
+}
+
+#btn {
+    position: relative;
+    left: 1px;
+}
+
+.total-label, .total-number {
+    color: #eee;
+}
+
+body {
+    font-family: 'Sora', sans-serif;
+    background-color: #e8e8e8;
+    background-image: url('/imagens/MAXX.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    position: relative;
+}
+
+body, html::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #282433; /* Ajuste o valor alpha para controlar a opacidade do filtro */
+}
+
+
+.table th,
+.table td {
+    border: 1px solid #6c757d;
+    text-align: center;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    
+
+    #impressao,
+    #impressao * {
+        visibility: visible;
+        font-family: 'Sora', sans-serif;
+    }
+
+    #impressao {
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: #fff;
+        padding: 20px;
+        font-family: 'Sora', sans-serif;
+    }
+
+    .table th,
+    .table td {
+        border: 1px solid #000;
+        text-align: center;
+        font-family: 'Sora', sans-serif;
+        font-weight: bold;
+    }
+
+    #impressao img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+}
+
 .h1,
 h1 {
     font-size: calc(1.375rem + 1.5vw);
     font-weight: bold;
-    background: linear-gradient(45deg, #ff8505, #0dcaf0);
+    background: linear-gradient(45deg, #ff7800, #f00d0d);
     color: azure;
+    text-align: center;
+    text-shadow: -1px 6px 0px rgba(0, 0, 0, 0.5);
+
 }
 
 th {
     font-weight: bold;
-    background: linear-gradient(45deg, #ff8505, #0dcaf0);
+    background: linear-gradient(45deg, #ff7800, #f00d0d);
     color: rgb(255, 255, 255) !important;
 }
 
@@ -57,14 +138,14 @@ input {
 /* Estilos para a etiqueta "Total de Materiais" */
 .total-label {
     font-weight: bold;
-    color: #333;
+    color: #eee;
     font-family: 'Sora', sans-serif;
 }
 
 /* Estilos para o número do total */
 .total-number {
     font-weight: bold;
-    color: #0066cc;
+    color: #eee;
     font-size: 28px;
     margin-left: 5px;
     font-family: 'Sora', sans-serif;
